@@ -25,11 +25,6 @@ import TodoItem from "./TodoItem.svelte";
     console.log(todoList);
   }
 
-  const setTaskAsDone = (e: any) => {
-    const item = e.detail.item;
-    todoList = todoList;
-    console.log(todoList);
-  }
 </script>
 
 <div class="main">
@@ -38,7 +33,7 @@ import TodoItem from "./TodoItem.svelte";
   <div class="todo-list">
     <ul>
       {#each todoList as item}
-        <TodoItem on:setAsDone={(e) => setTaskAsDone(e)} {item} />
+        <TodoItem {item} />
       {/each}
     </ul>
   </div>

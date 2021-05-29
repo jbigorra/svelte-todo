@@ -12,15 +12,15 @@
 
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-import type { Todo } from '../entities/entities';
+  import type { Todo } from '../entities/entities';
 
+  // Props
   export let item: Todo;
 
   const dispatch = createEventDispatcher();
 
   const toggleDone = () => {
     item.done = !item.done;
-    dispatch('setAsDone', { item });
   };
 
 </script>

@@ -36,6 +36,7 @@ import { onMount } from "svelte";
     console.log(todoList);
   }
 
+  // Homework, persist removed items
   const removeItem = (e: CustomEvent) => {
     const item = e.detail.item;
     const toRemove = todoList.indexOf(item);

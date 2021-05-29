@@ -11,18 +11,28 @@
 </style>
 
 <script lang="ts">
-import type { Todo } from "../entities/entities";
-import TodoItem from "./TodoItem.svelte";
+import { onMount } from "svelte";
+
+  import type { Todo } from "../entities/entities";
+  import TodoItem from "./TodoItem.svelte";
 
 
   let todo: string;
   let todoList: Todo[] = [];
 
-  const addTask = () => {
+  onMount(() => {
+    let list = JSON.parse(localStorage.getItem('todoList'));
+
+    if (!list) list = [];
+
+    todoList = list;
+  });
+
+  const addItem = () => {
     const id = new Date().getTime();
     const item: Todo = { id, text: todo, done: false };
     todoList = [item, ...todoList];
-    localStorage.setItem('task', JSON.stringify(todoList))
+    localStorage.setItem('todoList', JSON.stringify(todoList))
     console.log(todoList);
   }
 
@@ -38,7 +48,7 @@ import TodoItem from "./TodoItem.svelte";
 
 <div class="main">
   <input bind:value={todo} type="text" placeholder="Your task" id="inputId">
-  <button type="button" on:click={addTask}>Add task</button>
+  <button type="button" on:click={addItem}>Add task</button>
   <div class="todo-list">
     <ul>
       {#each todoList as item}

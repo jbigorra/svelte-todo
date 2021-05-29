@@ -22,6 +22,7 @@ import TodoItem from "./TodoItem.svelte";
     const id = new Date().getTime();
     const item: Todo = { id, text: todo, done: false };
     todoList = [item, ...todoList];
+    localStorage.setItem('task', JSON.stringify(todoList))
     console.log(todoList);
   }
 

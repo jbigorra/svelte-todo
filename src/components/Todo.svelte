@@ -19,9 +19,17 @@ import TodoItem from "./TodoItem.svelte";
   let todoList: Todo[] = [];
 
   const addTask = () => {
-    const id = todoList.length + 1;
+    const id = new Date().getTime();
     const item: Todo = { id, text: todo, done: false };
     todoList = [item, ...todoList];
+    console.log(todoList);
+  }
+
+  const removeItem = (e: CustomEvent) => {
+    const item = e.detail.item;
+    const toRemove = todoList.indexOf(item);
+    todoList.splice(toRemove, 1);
+    todoList = todoList;
     console.log(todoList);
   }
 
@@ -33,7 +41,7 @@ import TodoItem from "./TodoItem.svelte";
   <div class="todo-list">
     <ul>
       {#each todoList as item}
-        <TodoItem {item} />
+        <TodoItem {item} on:onRemoveItem={removeItem}/>
       {/each}
     </ul>
   </div>

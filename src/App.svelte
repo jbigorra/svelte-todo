@@ -1,13 +1,15 @@
 <script lang="ts">
-	import Todo from './components/Todo.svelte';
+	// import Todo from './components/Todo.svelte';
+import TodoFresh from './components/TodoFresh.svelte';
 </script>
 
 <main>
-	<h1>TODO - LIST</h1>
-  <Todo />
+	<!-- <h1>TODO - LIST</h1> -->
+  <!-- <Todo /> -->
+  <TodoFresh />
 </main>
 
-<style>
+<!-- <style>
 	main {
 		text-align: center;
 		padding: 1em;
@@ -27,4 +29,4 @@
 			max-width: none;
 		}
 	}
-</style>
+</style> -->

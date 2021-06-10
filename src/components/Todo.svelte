@@ -36,12 +36,19 @@ import { onMount } from "svelte";
     console.log(todoList);
   }
 
+
   // Homework, persist removed items
   const removeItem = (e: CustomEvent) => {
     const item = e.detail.item;
+    console.log(item)
     const toRemove = todoList.indexOf(item);
-    todoList.splice(toRemove, 1);
-    todoList = todoList;
+    console.log(toRemove)
+    // todoList.splice(toRemove, 1);
+    // todoList = todoList;
+    // localStorage.clear();
+    // localStorage.removeItem('toRemove');
+    // if (!todoList) localStorage.clear();
+
     console.log(todoList);
   }
 

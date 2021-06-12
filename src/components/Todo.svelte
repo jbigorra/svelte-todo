@@ -11,36 +11,31 @@
 </style>
 
 <script lang="ts">
-import { afterUpdate, beforeUpdate, onMount } from "svelte";
+  import { onMount } from "svelte";
+  import { getItems } from "../api-client";
 
   import type { Todo } from "../entities/entities";
   import TodoItem from "./TodoItem.svelte";
-
 
   let todo: string;
   let todoList: Todo[] = [];
 
   onMount(() => {
-    // whenever we open the app, we first read what is in the local storage:
-    let list = JSON.parse(localStorage.getItem('todoList'));
+    getItems().then(items => todoList = items);
+  })
 
-    if (!list) list = [];
 
-    todoList = list;
-  });
-
-  const addItem = () => {
+  const addItem = () => { // POST /item {item}
     const id = new Date().getTime();
     const item: Todo = { id, text: todo, done: false };
     todoList = [item, ...todoList];
     // let's overwrite with new stuff, that's da way to save it
     localStorage.setItem('todoList', JSON.stringify(todoList))
-    console.log(todoList);
   }
 
 
   // Homework, persist removed items
-  const removeItem = (e: CustomEvent) => {
+  const removeItem = (e: CustomEvent) => { // DELETE /item {item}
     const item = e.detail.item;
     const toRemove = todoList.indexOf(item);
     todoList.splice(toRemove, 1);
@@ -49,21 +44,12 @@ import { afterUpdate, beforeUpdate, onMount } from "svelte";
     todoList = todoList;
   }
 
-  const toggleDone = (e: CustomEvent) => {
+  const toggleDone = (e: CustomEvent) => { // PUT /item {item}
     const item = e.detail.item;
     item.done = !item.done;
     localStorage.setItem('todoList', JSON.stringify(todoList))
     todoList = todoList;
   }
-
-  /**
-   *
-   * InMemory                             |     Persisted (Local Storage / Server)
-   *   Exists until app is reloaded       |     It should exists even after reloading the app
-   *
-   *
-   *
-  */
 
 </script>
 
@@ -72,7 +58,7 @@ import { afterUpdate, beforeUpdate, onMount } from "svelte";
   <button type="button" on:click={addItem}>Add task</button>
   <div class="todo-list">
     <ul>
-      {#each todoList as item}
+      {#each todoList as item }
         <TodoItem {item} on:onToggleDone={toggleDone} on:onRemoveItem={removeItem}/>
       {/each}
     </ul>

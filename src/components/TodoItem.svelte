@@ -19,7 +19,7 @@
   const dispatch = createEventDispatcher();
 
   const toggleDone = () => {
-    item.done = !item.done;
+    dispatch('onToggleDone', { item });
   };
 
   const onXClicked = () => {

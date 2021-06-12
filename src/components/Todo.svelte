@@ -49,6 +49,13 @@ import { afterUpdate, beforeUpdate, onMount } from "svelte";
     todoList = todoList;
   }
 
+  const toggleDone = (e: CustomEvent) => {
+    const item = e.detail.item;
+    item.done = !item.done;
+    localStorage.setItem('todoList', JSON.stringify(todoList))
+    todoList = todoList;
+  }
+
   /**
    *
    * InMemory                             |     Persisted (Local Storage / Server)
@@ -66,7 +73,7 @@ import { afterUpdate, beforeUpdate, onMount } from "svelte";
   <div class="todo-list">
     <ul>
       {#each todoList as item}
-        <TodoItem {item} on:onRemoveItem={removeItem}/>
+        <TodoItem {item} on:onToggleDone={toggleDone} on:onRemoveItem={removeItem}/>
       {/each}
     </ul>
   </div>

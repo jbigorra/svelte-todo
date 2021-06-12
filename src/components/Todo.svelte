@@ -11,7 +11,7 @@
 </style>
 
 <script lang="ts">
-import { onMount } from "svelte";
+import { afterUpdate, beforeUpdate, onMount } from "svelte";
 
   import type { Todo } from "../entities/entities";
   import TodoItem from "./TodoItem.svelte";
@@ -21,6 +21,7 @@ import { onMount } from "svelte";
   let todoList: Todo[] = [];
 
   onMount(() => {
+    // whenever we open the app, we first read what is in the local storage:
     let list = JSON.parse(localStorage.getItem('todoList'));
 
     if (!list) list = [];
@@ -32,6 +33,7 @@ import { onMount } from "svelte";
     const id = new Date().getTime();
     const item: Todo = { id, text: todo, done: false };
     todoList = [item, ...todoList];
+    // let's overwrite with new stuff, that's da way to save it
     localStorage.setItem('todoList', JSON.stringify(todoList))
     console.log(todoList);
   }
@@ -40,17 +42,21 @@ import { onMount } from "svelte";
   // Homework, persist removed items
   const removeItem = (e: CustomEvent) => {
     const item = e.detail.item;
-    console.log(item)
     const toRemove = todoList.indexOf(item);
-    console.log(toRemove)
-    // todoList.splice(toRemove, 1);
-    // todoList = todoList;
-    // localStorage.clear();
-    // localStorage.removeItem('toRemove');
-    // if (!todoList) localStorage.clear();
-
-    console.log(todoList);
+    todoList.splice(toRemove, 1);
+    // ok we removed, so now let's save => overwrite the local storage with the 'copy' of local storage
+    localStorage.setItem('todoList', JSON.stringify(todoList))
+    todoList = todoList;
   }
+
+  /**
+   *
+   * InMemory                             |     Persisted (Local Storage / Server)
+   *   Exists until app is reloaded       |     It should exists even after reloading the app
+   *
+   *
+   *
+  */
 
 </script>
 

@@ -64,6 +64,12 @@
    *
   */
 
+  /**
+   * Homework
+   * 1) When a user adds a new task and presses "ENTER" then the task is added to the todo-list
+   * 2) Add some styling
+  */
+
 </script>
 
 <div class="main">

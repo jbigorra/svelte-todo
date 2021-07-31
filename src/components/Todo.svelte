@@ -11,10 +11,10 @@
 </style>
 
 <script lang="ts">
-import { afterUpdate, beforeUpdate, onMount } from "svelte";
+  import { onMount } from "svelte";
 
   import type { Todo } from "../entities/entities";
-  import TodoItem from "./TodoItem.svelte";
+  import List from "./List.svelte";
 
 
   let todo: string;
@@ -27,6 +27,7 @@ import { afterUpdate, beforeUpdate, onMount } from "svelte";
     if (!list) list = [];
 
     todoList = list;
+    console.log(todoList);
   });
 
   const addItem = () => {
@@ -70,11 +71,13 @@ import { afterUpdate, beforeUpdate, onMount } from "svelte";
 <div class="main">
   <input bind:value={todo} type="text" placeholder="Your task" id="inputId">
   <button type="button" on:click={addItem}>Add task</button>
-  <div class="todo-list">
-    <ul>
-      {#each todoList as item}
-        <TodoItem {item} on:onToggleDone={toggleDone} on:onRemoveItem={removeItem}/>
-      {/each}
-    </ul>
-  </div>
+
+
+  <List id="todo-list" items={todoList.filter(t => !t.done)} toggleDone={toggleDone} removeItem={removeItem} />
+  <List id="done-list" items={todoList.filter(t => t.done)} toggleDone={toggleDone} removeItem={removeItem} />
 </div>
+
+<!-- const List = {
+  items: filter('todos'),
+  toggleDone: toggleDone,
+} -->

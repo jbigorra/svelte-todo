@@ -1,4 +1,21 @@
-<style></style>
+<style>
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    border: 2px solid #000;
+    padding: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0.5rem;
+  }
+
+</style>
 <script lang="ts">
 import { createEventDispatcher } from "svelte";
 import type { Todo } from "../entities/entities";
@@ -8,6 +25,7 @@ export let items: Todo[] = [];
 export let toggleDone: (e: CustomEvent) => void | null = null;
 export let removeItem: (e: CustomEvent) => void | null = null;
 export let id: string;
+export let title: string;
 
 // const dispatch = createEventDispatcher();
 
@@ -23,6 +41,7 @@ export let id: string;
 </script>
 
 <div id={id} class="list">
+  <h3>{title}</h3>
   <ul>
     {#each items as item}
       <TodoItem {item} on:onToggleDone={toggleDone} on:onRemoveItem={removeItem}/>

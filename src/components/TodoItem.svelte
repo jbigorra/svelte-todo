@@ -32,6 +32,6 @@
 
 <li class:striked={item.done}>
   {item.text}
-  <input type="button" value="DONE" on:click={toggleDone}/>
+  <input type="button" value={item.done ? "Undo" : "Done"} on:click={toggleDone}/>
   <input type="button" value="X" on:click={onXClicked}/>
 </li>

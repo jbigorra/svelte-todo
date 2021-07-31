@@ -1,11 +1,9 @@
 <style>
 
-  .todo-list {
-    text-align: justify;
-  }
-
-  ul {
-    list-style: none;
+  .lists {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
   }
 
 </style>
@@ -72,9 +70,10 @@
   <input bind:value={todo} type="text" placeholder="Your task" id="inputId">
   <button type="button" on:click={addItem}>Add task</button>
 
-
-  <List id="todo-list" items={todoList.filter(t => !t.done)} toggleDone={toggleDone} removeItem={removeItem} />
-  <List id="done-list" items={todoList.filter(t => t.done)} toggleDone={toggleDone} removeItem={removeItem} />
+  <div class="lists">
+    <List id="todo-list" title="What you have left" items={todoList.filter(t => !t.done)} toggleDone={toggleDone} removeItem={removeItem} />
+    <List id="done-list" title="Things you've done yay" items={todoList.filter(t => t.done)} toggleDone={toggleDone} removeItem={removeItem} />
+  </div>
 </div>
 
 <!-- const List = {

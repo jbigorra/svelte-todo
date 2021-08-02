@@ -37,6 +37,12 @@
     console.log(todoList);
   }
 
+  const addOnEnter = (event) => {
+    if (event.keyCode === 13) {
+      addItem();
+    }
+  }
+
 
   // Homework, persist removed items
   const removeItem = (e: CustomEvent) => {

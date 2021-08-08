@@ -15,7 +15,7 @@
   import List from "./List.svelte";
 
 
-  let todo: string;
+  let todo: string = "";
   let todoList: Todo[] = [];
 
   onMount(() => {
@@ -29,13 +29,16 @@
   });
 
   const addItem = () => {
+    if (todo === "") return;
+
     const id = new Date().getTime();
     const item: Todo = { id, text: todo, done: false };
     todoList = [item, ...todoList];
+    todo = "";
     // let's overwrite with new stuff, that's da way to save it
     localStorage.setItem('todoList', JSON.stringify(todoList))
     console.log(todoList);
-  }
+}
 
   const addOnEnter = (event) => {
     if (event.keyCode === 13) {
@@ -61,9 +64,6 @@
     todoList = todoList;
   }
 
-  const changeBg = (e) => {
-  e.detail.style.background = "yellow";
-}
   /**
    *
    * InMemory                             |     Persisted (Local Storage / Server)
@@ -83,7 +83,7 @@
 </script>
 
 <div class="main">
-  <input bind:value={todo} type="text" placeholder="Your task" on:focus={changeBg} id="inputId" on:keydown={addOnEnter}>
+  <input bind:value={todo} type="text" placeholder="Your task" id="inputId" on:keyup={addOnEnter}>
   <button type="button" on:click={addItem}>Add task</button>
 
   <div class="lists">

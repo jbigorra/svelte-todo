@@ -61,6 +61,9 @@
     todoList = todoList;
   }
 
+  const changeBg = (e) => {
+  e.detail.style.background = "yellow";
+}
   /**
    *
    * InMemory                             |     Persisted (Local Storage / Server)
@@ -72,14 +75,15 @@
 
   /**
    * Homework
-   * 1) When a user adds a new task and presses "ENTER" then the task is added to the todo-list
+   * 1) When a user adds a new task and presses "ENTER" then the task is added to the todo-list - DONE
    * 2) Add some styling
+   * 3) remove the text from input area after adding the item to the list - not done
   */
 
 </script>
 
 <div class="main">
-  <input bind:value={todo} type="text" placeholder="Your task" id="inputId">
+  <input bind:value={todo} type="text" placeholder="Your task" on:focus={changeBg} id="inputId" on:keydown={addOnEnter}>
   <button type="button" on:click={addItem}>Add task</button>
 
   <div class="lists">

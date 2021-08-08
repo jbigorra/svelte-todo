@@ -38,7 +38,7 @@
     // let's overwrite with new stuff, that's da way to save it
     localStorage.setItem('todoList', JSON.stringify(todoList))
     console.log(todoList);
-}
+  }
 
   const addOnEnter = (event) => {
     if (event.keyCode === 13) {
@@ -75,9 +75,15 @@
 
   /**
    * Homework
-   * 1) When a user adds a new task and presses "ENTER" then the task is added to the todo-list - DONE
-   * 2) Add some styling
-   * 3) remove the text from input area after adding the item to the list - not done
+   *
+   * 1) Use the MockApiClient class to fake a backend in the Todo.svelte
+   *    - this means, that we would be using an in-memory implementation
+   *    - Hints:
+   *      a. onMount and getAll
+   *      b. addItem and post
+   *      c. toggleDone and update
+   *      d. removeItem and delete
+   *
   */
 
 </script>
